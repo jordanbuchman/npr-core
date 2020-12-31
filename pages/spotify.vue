@@ -1,7 +1,37 @@
 <template>
   <div class="container">
     <div>
-      <Results />
+      <div class="links">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+          v-bind:class="[{'button--grey--active': currentTab == 'short_term'}]"
+          v-on:click="currentTab = 'short_term'"
+        >
+          Short-term
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+          v-bind:class="[{'button--grey--active': currentTab == 'medium_term'}]"
+          v-on:click="currentTab = 'medium_term'"
+        >
+          Medium-term
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+          v-bind:class="[{'button--grey--active': currentTab == 'long_term'}]"
+          v-on:click="currentTab = 'long_term'"
+        >
+          Long-term
+        </a>
+      </div>
+      
+      <Results v-bind:timeframe="currentTab" />
     </div>
   </div>
 </template>
@@ -9,7 +39,13 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  data() {
+    return{
+      currentTab: "medium_term"
+    }
+  }
+})
 </script>
 
 <style>

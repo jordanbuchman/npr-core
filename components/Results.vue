@@ -1,6 +1,6 @@
 <template>
   <ul id="matches">
-    <li v-for="match in matches" :key="match.user.album.id">
+    <li v-for="match in matches" :key="match.user.id">
       <p> {{match.npr.artist}} - {{match.user.name}} : {{match.npr.title}} is <span v-if="match.npr.ranked"> ranked {{match.npr.rank}} </span> on {{match.npr.list}}</p>
     </li>
   </ul>
@@ -16,6 +16,9 @@
   }
   
   export default {
+    props: {
+      timeframe: String
+    },
     data () {
       return {
         matches: [] as Array<SpotifyUserPair>
@@ -23,6 +26,12 @@
     },
     created() {
       this.getNPRMatches();
+    },
+
+    watch: { 
+      timeframe: function(newVal, oldVal) { // watch it
+        this.getNPRMatches();
+      }
     },
     methods: {
       async getDataFromSpotify(){
@@ -32,7 +41,7 @@
         let spotify = new SpotifyWebApi();
         spotify.setAccessToken(access_token);
 
-        let top_tracks = await spotify.getMyTopTracks({limit: 50});
+        let top_tracks = await spotify.getMyTopTracks({limit: 50, time_range: this.$props.timeframe});
 
         return top_tracks.items;
 
