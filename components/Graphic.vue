@@ -62,7 +62,7 @@
         albumImg.scaleToHeight(100);
         albumImg.scaleToWidth(100);
         group.add(albumImg);
-        let albumText = new fabric.Textbox(`${song.user.name}\n${song.user.artists[0].name}\nFrom \"${song.npr['title']}\", ranked ${song.npr['rank']} on ${song.npr['list']}`, {
+        let albumText = new fabric.Textbox(`${song.user.artists[0].name} - ${song.user.name}\nFrom \"${song.npr['title']}\", ranked ${song.npr['rank']} on ${song.npr['list']}`, {
           top: 110,
           width: 100,
           fontSize: 10

@@ -5,7 +5,7 @@
         <p> {{match.npr.artist}} - {{match.user.name}} : {{match.npr.title}} is <span v-if="match.npr.ranked"> ranked {{match.npr.rank}} </span> on {{match.npr.list}}</p>
       </li>
     </ul>
-    <Graphic v-bind:results="{songs: matches.slice(0,3)}"/>
+    <Graphic v-bind:results="{songs: matches.slice(0,3), score: matches.length*2}"/>
   </div>
 </template>
 
