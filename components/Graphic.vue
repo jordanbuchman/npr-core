@@ -99,7 +99,7 @@
       generateFooter() {
         const FONT_SIZE = 25;
 
-        let urlText = new fabric.Text('nprco.re', {
+        let urlText = new fabric.Text('nprcore.me', {
           fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
         });
