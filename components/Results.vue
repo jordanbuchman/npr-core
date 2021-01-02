@@ -147,7 +147,7 @@
         return ((this['track_matches'] as []).length + (this['artist_matches'] as []).length) / 100
       },
       verdict() {
-        const verdicts = ["You've never heard a banjo", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
+        const verdicts = ["No Things Considered", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
         return verdicts[Math.round(verdicts.length*(this['score'] as any))];
       }
     }
