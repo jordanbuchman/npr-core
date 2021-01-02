@@ -333,7 +333,7 @@
         }
         let top: Array<SpotifyUserPair> = [];
         let albumIds: Array<string> = [];
-        let sortedResults = songs.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
+        let sortedResults = songs.slice();//.sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
 
         let firstSong = sortedResults.shift();
         top.push(firstSong as SpotifyUserPair);
@@ -363,7 +363,7 @@
       },
 
       topArtists: function(): Array<ArtistUserPair> {
-        const artists = this['$props'].results.artists.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
+        const artists = this['$props'].results.artists;//.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
         return artists.slice(0, 3);
       }
     }
