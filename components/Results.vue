@@ -5,24 +5,14 @@
         <p> {{match.npr.artist}} - {{match.user.name}} : {{match.npr.title}} is <span v-if="match.npr.ranked"> ranked {{match.npr.rank}} </span> on {{match.npr.list}}</p>
       </li>
     </ul>
-    <Graphic v-bind:results="{songs: matches.slice(0,3), score: matches.length*2}"/>
+    <Graphic v-bind:results="{songs: matches, score: matches.length*2}"/>
   </div>
 </template>
 
 <script lang="ts">
   import SpotifyWebApi from 'spotify-web-api-js';
   import npr_data from '~/assets/npr_data.json';
-  import { fabric } from 'fabric';
   import { promisify } from 'es6-promisify';
-
-  //const imageFromURL = promisify(fabric.Image.fromURL);
-  const imageFromURL = function(url: string) {
-    return new Promise(resolve => {
-      fabric.Image.fromURL(url, function(img) {
-        resolve(img);
-      });
-    });
-  };
 
   type SpotifyUserPair= {
     npr: Object;
@@ -62,7 +52,7 @@
       },
 
       async getNPRMatches() {
-        const matches: Array<SpotifyUserPair> = [];
+        let matches: Array<SpotifyUserPair> = [];
 
         const spotify_data = await this.getDataFromSpotify();
 

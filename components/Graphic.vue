@@ -22,20 +22,21 @@
     user: SpotifyApi.TrackObjectFull;
   }
   
+  const ALBUM_IMAGE_SIZE = 110;
+
   export default {
     props: {
       results: Object
     },
     async mounted() {
-      console.log(this['$props'].results);
       this['canvas'] = new fabric.StaticCanvas("c");
-      if (this['$props'].results.songs.length == 3) {
+      if (this['$props'].results.songs.length >= 3) {
         this['drawCanvas']();
       }
     },
     watch: { 
       results: async function(newVal:any, oldVal:any) { // watch it
-        if (this['$props'].results.songs.length == 3) {
+        if (this['$props'].results.songs.length >= 3) {
           this['canvas'].clear();
           this['drawCanvas']();
         }
@@ -46,51 +47,105 @@
           this['canvas'].setBackgroundColor('#ffffff', this['canvas'].renderAll.bind(this['canvas']));
           let score = await this['generateScore'](this['$props'].results.score);
           score.set({
-            top: 10,
+            top: 20,
           });
           this['canvas'].add(score);
           score.centerH();
 
           let verdict = this['generateVerdict'](this['$props'].results.score);
           verdict.set({
-            top: score.getBoundingRect().height+20
+            top: score.getCoords()[3].y + 20
           })
           this['canvas'].add(verdict);
           verdict.centerH();
 
-          let group = await this['generateSongListWithTitle'](this['$props'].results.songs);
+          let group = await this['generateSongListWithTitle'](this['topSongs']);
           group.set({
-            left: 10,
-            top: verdict.getCoords()[3].y+10
+            left: 20,
+            top: verdict.getCoords()[3].y+20
           });
           this['canvas'].add(group);
 
+          let group2 = await this['generateSongListWithTitle'](this['topSongs']);
+          group2.set({
+            left: this['canvas'].getWidth() - group2.getBoundingRect().width - 20,
+            top: verdict.getCoords()[3].y+20
+          });
+          this['canvas'].add(group2);
+        
+
+          let footer = await this['generateFooter']();
+          footer.set({
+            left: this['canvas'].getWidth() - footer.getBoundingRect().width - 10,
+            top: this['canvas'].getHeight() - footer.getBoundingRect().height - 10
+          })
+          this['canvas'].add(footer);
+
           this['canvas'].renderAll();
       },
+
+      generateFooter() {
+        const FONT_SIZE = 25;
+
+        let urlText = new fabric.Text('nprco.re', {
+          fontSize: FONT_SIZE,
+          fontFamily: 'Trebuchet MS',
+        });
+        
+        return urlText;
+      },
       generateVerdict(score: number) {
+        const FONT_SIZE = 25;
+
         const verdicts = ["You've never heard a banjo", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
         let verdict = verdicts[Math.round(verdicts.length*(score/100))];
       
         let verdictText = new fabric.Text(`Verdict: ${verdict}`, {
-          fontSize: 20,
+          fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
         });
 
         return verdictText;
       },
       async generateScore(score: number) {
+        const FONT_SIZE = 60;
+
         let group = new fabric.Group();
 
-        let beginText = new fabric.Text(`You are ${score}% `, {
-          fontSize: 40,
+        let styles = {};
+        if (score >= 10) {
+          styles = {
+            0: {
+              8: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              9: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              10: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              11: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              12: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+            }
+          };
+        }
+        else {
+          styles = {
+            0: {
+              8: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              9: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              10: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+              11: { fill: '#ffffff', textBackgroundColor: '#C63229' },
+            }
+          }
+        }
+
+        let beginText = new fabric.IText(`You are  ${score}%  `, {
+          fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
           top: 0,
-          left: 0
+          left: 0,
+          styles: styles
         });
         group.add(beginText);
 
         let nprImg = await imageFromURL('/images/nprlogo.png') as fabric.Image;
-        nprImg.scaleToHeight(40);
+        nprImg.scaleToHeight(FONT_SIZE);
         nprImg.set({
           top: 3,
           left: beginText.getBoundingRect().width
@@ -98,7 +153,7 @@
         group.add(nprImg)
 
         let endText = new fabric.Text(` core`, {
-          fontSize: 40,
+          fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
           top:0,
           left: beginText.getBoundingRect().width + nprImg.getBoundingRect().width
@@ -110,21 +165,22 @@
         return group;
       },
       async generateSong(song: SpotifyUserPair): Promise<fabric.Group> {
+        const FONT_SIZE = 12;
+
         let group = new fabric.Group();
 
         let albumImg = await imageFromURL(song.npr['cover']) as fabric.Image;
-        console.log(albumImg);
         albumImg.set({
           top: 0
         });
-        albumImg.scaleToHeight(100);
-        albumImg.scaleToWidth(100);
+        albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
+        albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
         group.add(albumImg);
-        let albumText = new fabric.Textbox(`${song.user.artists[0].name} - ${song.user.name}\nFrom \"${song.npr['title']}\", ranked ${song.npr['rank']} on ${song.npr['list']}`, {
-          top: 110,
-          width: 100,
-          fontSize: 10,
-          fontFamily: 'Trebuchet MS'
+        let albumText = new fabric.Textbox(`${song.user.artists[0].name} / ${song.user.name} / \"${song.npr['title']}\" is ranked ${song.npr['rank']} on ${song.npr['list']}`, {
+          top: ALBUM_IMAGE_SIZE+10,
+          width: ALBUM_IMAGE_SIZE,
+          fontSize: FONT_SIZE,
+          fontFamily: 'Trebuchet MS',
         });
         group.add(albumText);
         group.addWithUpdate();
@@ -163,15 +219,49 @@
         });
         group.add(songGroups[0]);
         songGroups[1].set({
-          left: 110
+          left: ALBUM_IMAGE_SIZE+10
         });
         group.add(songGroups[1]);
         songGroups[2].set({
-          left: 220
+          left: ALBUM_IMAGE_SIZE*2+20
         });
         group.add(songGroups[2]);
         group.addWithUpdate();
         return group;
+      }
+    },
+    computed: {
+      topSongs: function(): Array<SpotifyUserPair> {
+        const songs = this['$props'].results.songs;
+        let top: Array<SpotifyUserPair> = [];
+        let albumIds: Array<string> = [];
+        let sortedResults = songs.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
+
+        let firstSong = sortedResults.shift();
+        top.push(firstSong as SpotifyUserPair);
+        albumIds.push((firstSong as SpotifyUserPair).user.album.id);
+
+        let secondSong = sortedResults.find((song: any) => !albumIds.includes(song.user.album.id));
+        if (secondSong == undefined) {
+          top.push(sortedResults.shift() as SpotifyUserPair);
+        }
+        else {
+          top.push(secondSong);
+          albumIds.push(secondSong.user.album.id);
+          sortedResults.splice(sortedResults.indexOf(secondSong), 1);
+        }
+
+        let thirdSong = sortedResults.find((song: any) => !albumIds.includes(song.user.album.id));
+        if (thirdSong == undefined) {
+          top.push(sortedResults.shift() as SpotifyUserPair);
+        }
+        else {
+          top.push(thirdSong);
+          albumIds.push(thirdSong.user.album.id);
+          sortedResults.splice(sortedResults.indexOf(thirdSong), 1);
+        }
+
+        return top;
       }
     }
   }
