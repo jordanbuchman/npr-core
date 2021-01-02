@@ -208,6 +208,8 @@
 
         group.addWithUpdate();
 
+
+
         return group;
       },
 
@@ -233,6 +235,13 @@
           });
           group.add(songGroups[2]);
         }
+
+        group.add(new fabric.Rect({
+          width:ALBUM_IMAGE_SIZE*3+20,
+          fill: 'transparent',
+          stroke: 'transparent'
+        }))
+
         group.addWithUpdate();
         return group;
       },
@@ -305,6 +314,13 @@
           });
           group.add(songGroups[2]);
         }
+
+        group.add(new fabric.Rect({
+          width:ALBUM_IMAGE_SIZE*3+20,
+          fill: 'transparent',
+          stroke: 'transparent'
+        }))
+        
         group.addWithUpdate();
         return group;
       }
