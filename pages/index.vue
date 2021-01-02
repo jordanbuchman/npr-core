@@ -7,7 +7,7 @@
       </h1>
       <div class="links">
         <a
-          href="https://accounts.spotify.com/authorize?client_id=d58342257cb443e6847a98d9a0476bbf&redirect_uri=http:%2F%2Flocalhost:3000%2Fspotify&scope=user-top-read&response_type=token&state=123"
+          v-bind:href="redirect_uri"
           target="_self"
           class="button--green"
         >
@@ -29,7 +29,13 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  data(){
+    return {
+      redirect_uri: `https://accounts.spotify.com/authorize?client_id=d58342257cb443e6847a98d9a0476bbf&redirect_uri=http:%2F%2F${window.location.host}%2Fspotify&scope=user-top-read&response_type=token&state=123`
+    }
+  }
+})
 </script>
 
 <style>
