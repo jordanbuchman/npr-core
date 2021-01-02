@@ -21,6 +21,11 @@
     npr: Object;
     user: SpotifyApi.TrackObjectFull;
   }
+
+  type ArtistUserPair= {
+    npr: Object;
+    user: SpotifyApi.ArtistObjectFull;
+  }
   
   const ALBUM_IMAGE_SIZE = 110;
 
@@ -30,16 +35,12 @@
     },
     async mounted() {
       this['canvas'] = new fabric.StaticCanvas("c");
-      if (this['$props'].results.songs.length >= 3) {
         this['drawCanvas']();
-      }
     },
     watch: { 
       results: async function(newVal:any, oldVal:any) { // watch it
-        if (this['$props'].results.songs.length >= 3) {
           this['canvas'].clear();
           this['drawCanvas']();
-        }
       }
     },
     methods: {
@@ -66,7 +67,7 @@
           });
           this['canvas'].add(group);
 
-          let group2 = await this['generateSongListWithTitle'](this['topSongs']);
+          let group2 = await this['generateArtistListWithTitle'](this['topArtists']);
           group2.set({
             left: this['canvas'].getWidth() - group2.getBoundingRect().width - 20,
             top: verdict.getCoords()[3].y+20
@@ -214,18 +215,96 @@
         let songPromises = songs.map(this.generateSong);
         let group = new fabric.Group();
         let songGroups = await Promise.all(songPromises);
-        songGroups[0].set({
-          left: 0
+        if (songGroups.length > 0) {
+          songGroups[0].set({
+            left: 0
+          });
+          group.add(songGroups[0]);
+        }
+        if (songGroups.length > 1) {
+          songGroups[1].set({
+            left: ALBUM_IMAGE_SIZE+10
+          });
+          group.add(songGroups[1]);
+        }
+        if (songGroups.length > 2) {
+          songGroups[2].set({
+            left: ALBUM_IMAGE_SIZE*2+20
+          });
+          group.add(songGroups[2]);
+        }
+        group.addWithUpdate();
+        return group;
+      },
+      // GENERATE ARTIST
+      async generateArtist(song: ArtistUserPair): Promise<fabric.Group> {
+        const FONT_SIZE = 12;
+
+        let group = new fabric.Group();
+
+        let albumImg = await imageFromURL(song.user.images[0].url) as fabric.Image;
+        albumImg.set({
+          top: 0
         });
-        group.add(songGroups[0]);
-        songGroups[1].set({
-          left: ALBUM_IMAGE_SIZE+10
+        albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
+        albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
+        group.add(albumImg);
+        let albumText = new fabric.Textbox(`${song.user.name}'s \"${song.npr['title']}\" is ranked ${song.npr['rank']} on ${song.npr['list']}`, {
+          top: ALBUM_IMAGE_SIZE+10,
+          width: ALBUM_IMAGE_SIZE,
+          fontSize: FONT_SIZE,
+          fontFamily: 'Trebuchet MS',
         });
-        group.add(songGroups[1]);
-        songGroups[2].set({
-          left: ALBUM_IMAGE_SIZE*2+20
+        group.add(albumText);
+        group.addWithUpdate();
+
+        return group;
+      },
+
+      async generateArtistListWithTitle(songs: Array<ArtistUserPair>): Promise<fabric.Group> {
+        let group = new fabric.Group();
+
+        let titleText = new fabric.Text(`Your top ${songs.length} NPRcore artists:`, {
+          fontSize: 20,
+          fontFamily: 'Trebuchet MS',
+          originX: 'center'
         });
-        group.add(songGroups[2]);
+        group.add(titleText);
+
+        let songList = await this['generateArtistList'](songs);
+        songList.set({
+          top: titleText.getBoundingRect().height + 5,
+          originX: 'center'
+        })
+        group.add(songList);
+
+        group.addWithUpdate();
+
+        return group;
+      },
+
+      async generateArtistList(songs: Array<ArtistUserPair>): Promise<fabric.Group> {
+        let songPromises = songs.map(this.generateArtist);
+        let group = new fabric.Group();
+        let songGroups = await Promise.all(songPromises);
+        if (songGroups.length > 0) {
+          songGroups[0].set({
+            left: 0
+          });
+          group.add(songGroups[0]);
+        }
+        if (songGroups.length > 1) {
+          songGroups[1].set({
+            left: ALBUM_IMAGE_SIZE+10
+          });
+          group.add(songGroups[1]);
+        }
+        if (songGroups.length > 2) {
+          songGroups[2].set({
+            left: ALBUM_IMAGE_SIZE*2+20
+          });
+          group.add(songGroups[2]);
+        }
         group.addWithUpdate();
         return group;
       }
@@ -233,6 +312,9 @@
     computed: {
       topSongs: function(): Array<SpotifyUserPair> {
         const songs = this['$props'].results.songs;
+        if (songs.length < 4) {
+          return songs;
+        }
         let top: Array<SpotifyUserPair> = [];
         let albumIds: Array<string> = [];
         let sortedResults = songs.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
@@ -262,6 +344,11 @@
         }
 
         return top;
+      },
+
+      topArtists: function(): Array<ArtistUserPair> {
+        const artists = this['$props'].results.artists.slice().sort((a,b) => (a.npr['rank'] > b.npr['rank']) ? 1 : -1);
+        return artists.slice(0, 3);
       }
     }
   }
