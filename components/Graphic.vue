@@ -183,7 +183,9 @@
 
         let albumImg = await imageFromURL(song.npr['cover']) as fabric.Image;
         albumImg.set({
-          top: 0
+          top: 0,
+          width: Math.min(albumImg.getBoundingRect().width, albumImg.getBoundingRect().height),
+          height: Math.min(albumImg.getBoundingRect().width, albumImg.getBoundingRect().height),
         });
         albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
         albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
@@ -264,7 +266,9 @@
 
         let albumImg = await imageFromURL(song.user.images[0].url) as fabric.Image;
         albumImg.set({
-          top: 0
+          top: 0,
+          width: Math.min(albumImg.getBoundingRect().width, albumImg.getBoundingRect().height),
+          height: Math.min(albumImg.getBoundingRect().width, albumImg.getBoundingRect().height),
         });
         albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
         albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
