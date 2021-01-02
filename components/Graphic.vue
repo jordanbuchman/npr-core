@@ -1,6 +1,6 @@
 <template>
 <div>
-    <canvas style="border: 5px solid red" id="c" width="800" height="450"></canvas>
+    <canvas id="c" width="800" height="450"></canvas>
   </div>
 </template>
 
@@ -46,6 +46,8 @@
     methods: {
       async drawCanvas() {
           this['canvas'].setBackgroundColor('#ffffff', this['canvas'].renderAll.bind(this['canvas']));
+
+          this['canvas'].add(new fabric.Rect({left:0, top:0, fill: 'transparent', stroke: '#C63229', strokeWidth: 5, strokeLineJoin: 'round', width: this['canvas'].getWidth()-5, height: this['canvas'].getHeight()-5}))
           let score = await this['generateScore'](this['$props'].results.score);
           score.set({
             top: 20,
@@ -98,7 +100,7 @@
       generateVerdict(score: number) {
         const FONT_SIZE = 25;
 
-        const verdicts = ["You've never heard a banjo", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
+        const verdicts = ["You've never heard a banjo", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
         let verdict = verdicts[Math.round(verdicts.length*(score/100))];
       
         let verdictText = new fabric.Text(`Verdict: ${verdict}`, {
