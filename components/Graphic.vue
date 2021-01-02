@@ -108,11 +108,8 @@
       },
       generateVerdict(score: number) {
         const FONT_SIZE = 25;
-
-        const verdicts = ["You've never heard a banjo", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
-        let verdict = verdicts[Math.round(verdicts.length*(score/100))];
       
-        let verdictText = new fabric.Text(`Verdict: ${verdict}`, {
+        let verdictText = new fabric.Text(`Verdict: ${this['results'].verdict}`, {
           fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
         });

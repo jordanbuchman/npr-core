@@ -1,6 +1,7 @@
 <template>
 <div>
     <h3 class="subtitle is-3">You are <span class="has-text-white has-text-weight-bold px-1" style="background-color: #C63229"> {{score*100}}%</span> NPRcore! </h3>
+    <h4 class="subtitle is-4">Verdict: {{verdict}} </h4>
     <div class="columns">
       <div class="column">
         <strong> {{track_matches.length}} </strong> matched tracks
@@ -57,7 +58,7 @@
         </div>
       </div>
     </div>
-    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>
+    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches, verdict: verdict}"/>
   </div>
 </template>
 
@@ -142,8 +143,12 @@
     },
 
     computed: {
-      score: function() {
+      score() {
         return ((this['track_matches'] as []).length + (this['artist_matches'] as []).length) / 100
+      },
+      verdict() {
+        const verdicts = ["You've never heard a banjo", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
+        return verdicts[Math.round(verdicts.length*(this['score'] as any))];
       }
     }
   }
