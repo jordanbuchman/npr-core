@@ -1,36 +1,36 @@
 <template>
   <div class="container">
     <div>
-      <div class="links">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-          v-bind:class="[{'button--grey--active': currentTab == 'short_term'}]"
-          v-on:click="currentTab = 'short_term'"
-        >
-          Short-term
-        </a>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-          v-bind:class="[{'button--grey--active': currentTab == 'medium_term'}]"
-          v-on:click="currentTab = 'medium_term'"
-        >
-          Medium-term
-        </a>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-          v-bind:class="[{'button--grey--active': currentTab == 'long_term'}]"
-          v-on:click="currentTab = 'long_term'"
-        >
-          Long-term
-        </a>
+      <h1 class="title is-1">
+        How <img src="/images/nprlogo.png" style="height:3rem; vertical-align:bottom" /> core are you?
+      </h1>
+      <div class="tabs is-toggle is-centered is-fullwidth">
+        <ul>
+          <li v-bind:class="[{'is-active': currentTab == 'short_term'}]">
+            <a
+              v-on:click="currentTab = 'short_term'"
+            >
+              Short-term
+            </a>
+          </li>
+          <li v-bind:class="[{'is-active': currentTab == 'medium_term'}]">
+            <a
+              v-bind:class="[{'button is-active': currentTab == 'medium_term'}]"
+              v-on:click="currentTab = 'medium_term'"
+            >
+              Medium-term
+            </a>
+          </li>
+          <li v-bind:class="[{'is-active': currentTab == 'long_term'}]">
+            <a
+              v-bind:class="[{'button is-active': currentTab == 'long_term'}]"
+              v-on:click="currentTab = 'long_term'"
+            >
+              Long-term
+            </a>
+          </li>
+        </ul>
       </div>
-      
       <Results v-bind:timeframe="currentTab" />
     </div>
   </div>
@@ -49,42 +49,21 @@ export default Vue.extend({
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+.site {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.site_content {
+  flex: 1;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+  .container {
+    margin: 0 auto;
+    /*min-height: 100vh;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 </style>

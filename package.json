@@ -15,11 +15,15 @@
     "es6-promisify": "^6.1.1",
     "fabric": "^4.3.0",
     "nuxt": "^2.14.6",
+    "nuxt-buefy": "^0.4.4",
     "spotify-web-api-js": "^1.5.1"
   },
   "devDependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "@types/core-js": "^2.5.4",
     "@types/es6-promisify": "^6.0.0",
     "@types/fabric": "^4.2.1"

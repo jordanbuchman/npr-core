@@ -1,11 +1,60 @@
 <template>
 <div>
-    <ul id="matches">
-      <li v-for="match in track_matches" :key="match.user.id">
-        <p> {{match.npr.artist}} - {{match.user.name}} : {{match.npr.title}} is <span v-if="match.npr.ranked"> ranked {{match.npr.rank}} </span> on {{match.npr.list}}</p>
-      </li>
-    </ul>
-    <Graphic v-bind:results="{songs: track_matches, score: track_matches.length*2, artists: artist_matches}"/>
+    <h3 class="subtitle is-3">You are <span class="has-text-white has-text-weight-bold px-1" style="background-color: #C63229"> {{score*100}}%</span> NPRcore! </h3>
+    <div class="columns">
+      <div class="column">
+        <strong> {{track_matches.length}} </strong> matched tracks
+        <ul id="track_matches">
+          <li v-for="match in track_matches" :key="match.user.id">
+            <article class="media my-1">
+              <figure class="media-left">
+                <p class="">
+                  <img style="height: 4.5em;" :src="match.npr.cover">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="has-text-left content">
+                  <p>
+                    <strong>{{match.npr.artist}}</strong>
+                    <br>
+                    <em>{{match.user.name}}</em> from "{{match.npr.title}}"
+                    <br>
+                    <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+      <div class="column">
+        <strong> {{artist_matches.length}} </strong> matched artists
+        <ul id="artist_matches">
+          <li v-for="match in artist_matches" :key="match.user.id">
+            <article class="media my-1">
+              <figure class="media-left">
+                <p class="">
+                  <img style="height: 4.5em;" :src="match.user.images[0].url">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="has-text-left content">
+                  <p>
+                    <strong>{{match.npr.artist}}</strong>
+                    <br>
+                    "{{match.npr.title}}"
+                    <br>
+                    <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>
   </div>
 </template>
 
@@ -65,7 +114,7 @@
         let track_matches: Array<SpotifyUserPair> = [];
         let artist_matches: Array<ArtistUserPair> = [];
 
-        const spotify_data = await this.getDataFromSpotify();
+        const spotify_data = await this['getDataFromSpotify']();
 
         spotify_data.tracks.forEach( (track:any) => {
           if (Object.keys(npr_data.albums).includes(track.album.id)){
@@ -86,6 +135,12 @@
 
         this['track_matches'] = track_matches;
         this['artist_matches'] = artist_matches;
+      }
+    },
+
+    computed: {
+      score: function() {
+        return ((this['track_matches'] as []).length + (this['artist_matches'] as []).length) / 100
       }
     }
   }

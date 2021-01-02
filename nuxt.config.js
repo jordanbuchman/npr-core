@@ -33,12 +33,21 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/fontawesome',
   ],
+
+  fontawesome: {
+    icons: {
+      brands: ['faSpotify'],
+      solid: ['faMusic']
+    }
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     '@nuxtjs/bulma',
+    //'nuxt-buefy',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

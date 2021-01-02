@@ -111,6 +111,7 @@
         return verdictText;
       },
       async generateScore(score: number) {
+
         const FONT_SIZE = 60;
 
         let group = new fabric.Group();
@@ -147,7 +148,9 @@
         });
         group.add(beginText);
 
+
         let nprImg = await imageFromURL('/images/nprlogo.png') as fabric.Image;
+
         nprImg.scaleToHeight(FONT_SIZE);
         nprImg.set({
           top: 3,

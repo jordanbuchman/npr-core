@@ -1,25 +1,17 @@
 <template>
+
   <div class="container">
     <div>
-      <Logo />
-      <h1 class="title">
-        npr-core
+      <h1 class="title is-1">
+        How <img src="/images/nprlogo.png" style="height:3rem; vertical-align:bottom" /> core are you?
       </h1>
       <div class="links">
-        <a
+        <a 
           v-bind:href="redirect_uri"
           target="_self"
-          class="button--green"
+          class="button is-medium is-success"
         >
-          Log in with Spotify
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          Last.fm
+          <span class="icon is-medium" style="margin-right: 0.25rem"> <font-awesome-icon :icon="['fab', 'spotify']" /> </span> Log in with Spotify 
         </a>
       </div>
     </div>
@@ -39,15 +31,17 @@ export default Vue.extend({
 </script>
 
 <style>
+
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
+/*
 .title {
   font-family:
     'Quicksand',
@@ -65,7 +59,8 @@ export default Vue.extend({
   color: #35495e;
   letter-spacing: 1px;
 }
-
+*/
+/*
 .subtitle {
   font-weight: 300;
   font-size: 42px;
@@ -77,4 +72,5 @@ export default Vue.extend({
 .links {
   padding-top: 15px;
 }
+*/
 </style>

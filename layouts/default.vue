@@ -1,10 +1,30 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="site">
+    <Nuxt class="site_content" />
+    <footer style="padding-bottom: 3rem" class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>How NPRcore are you?</strong> was made with <font-awesome-icon :icon="['fas', 'music']" /> by <a href="https://github.com/jordanbuchman">Jordan Buchman</a> and Sam Lowe. 
+          The <a href="https://github.com/jordanbuchman/npr-core">source code</a> is licensed <a href="https://opensource.org/licenses/GPL-3.0">GPLv3</a>.
+          NPR and the NPR logo are property of <a href="https://npr.org"> National Public Radio, Inc.</a>.
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
 <style>
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site_content {
+  flex: 1;
+}
+/*
 html {
   font-family:
     'Source Sans Pro',
@@ -65,5 +85,6 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+*/
 
 </style>
