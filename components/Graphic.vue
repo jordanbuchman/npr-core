@@ -1,6 +1,6 @@
 <template>
 <div>
-    <canvas id="c" width="800" height="800"></canvas>
+    <canvas style="border: 5px solid red" id="c" width="800" height="450"></canvas>
   </div>
 </template>
 
@@ -43,13 +43,71 @@
     },
     methods: {
       async drawCanvas() {
-          let group = await this['generateSongList'](this['$props'].results.songs);
+          this['canvas'].setBackgroundColor('#ffffff', this['canvas'].renderAll.bind(this['canvas']));
+          let score = await this['generateScore'](this['$props'].results.score);
+          score.set({
+            top: 10,
+          });
+          this['canvas'].add(score);
+          score.centerH();
+
+          let verdict = this['generateVerdict'](this['$props'].results.score);
+          verdict.set({
+            top: score.getBoundingRect().height+20
+          })
+          this['canvas'].add(verdict);
+          verdict.centerH();
+
+          let group = await this['generateSongListWithTitle'](this['$props'].results.songs);
           group.set({
-            left: 0,
-            top: 0
+            left: 10,
+            top: verdict.getCoords()[3].y+10
           });
           this['canvas'].add(group);
+
           this['canvas'].renderAll();
+      },
+      generateVerdict(score: number) {
+        const verdicts = ["You've never heard a banjo", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
+        let verdict = verdicts[Math.round(verdicts.length*(score/100))];
+      
+        let verdictText = new fabric.Text(`Verdict: ${verdict}`, {
+          fontSize: 20,
+          fontFamily: 'Trebuchet MS',
+        });
+
+        return verdictText;
+      },
+      async generateScore(score: number) {
+        let group = new fabric.Group();
+
+        let beginText = new fabric.Text(`You are ${score}% `, {
+          fontSize: 40,
+          fontFamily: 'Trebuchet MS',
+          top: 0,
+          left: 0
+        });
+        group.add(beginText);
+
+        let nprImg = await imageFromURL('/images/nprlogo.png') as fabric.Image;
+        nprImg.scaleToHeight(40);
+        nprImg.set({
+          top: 3,
+          left: beginText.getBoundingRect().width
+        })
+        group.add(nprImg)
+
+        let endText = new fabric.Text(` core`, {
+          fontSize: 40,
+          fontFamily: 'Trebuchet MS',
+          top:0,
+          left: beginText.getBoundingRect().width + nprImg.getBoundingRect().width
+        });
+        group.add(endText);
+     
+        group.addWithUpdate();
+
+        return group;
       },
       async generateSong(song: SpotifyUserPair): Promise<fabric.Group> {
         let group = new fabric.Group();
@@ -65,7 +123,8 @@
         let albumText = new fabric.Textbox(`${song.user.artists[0].name} - ${song.user.name}\nFrom \"${song.npr['title']}\", ranked ${song.npr['rank']} on ${song.npr['list']}`, {
           top: 110,
           width: 100,
-          fontSize: 10
+          fontSize: 10,
+          fontFamily: 'Trebuchet MS'
         });
         group.add(albumText);
         group.addWithUpdate();
@@ -73,8 +132,29 @@
         return group;
       },
 
+      async generateSongListWithTitle(songs: Array<SpotifyUserPair>): Promise<fabric.Group> {
+        let group = new fabric.Group();
+
+        let titleText = new fabric.Text(`Your top ${songs.length} NPRcore songs:`, {
+          fontSize: 20,
+          fontFamily: 'Trebuchet MS',
+          originX: 'center'
+        });
+        group.add(titleText);
+
+        let songList = await this['generateSongList'](songs);
+        songList.set({
+          top: titleText.getBoundingRect().height + 5,
+          originX: 'center'
+        })
+        group.add(songList);
+
+        group.addWithUpdate();
+
+        return group;
+      },
+
       async generateSongList(songs: Array<SpotifyUserPair>): Promise<fabric.Group> {
-        console.log(songs.length);
         let songPromises = songs.map(this.generateSong);
         let group = new fabric.Group();
         let songGroups = await Promise.all(songPromises);
