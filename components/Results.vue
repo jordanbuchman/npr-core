@@ -54,7 +54,7 @@
       </div>
     </div>
     
-    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>
+    <!--<Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>-->
   </div>
 </template>
 
