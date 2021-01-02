@@ -1,6 +1,9 @@
 <template>
 <div>
-    <canvas id="c" width="800" height="450"></canvas>
+    <a id="graphic_download" class="button is-primary is-medium">
+      Download results graphic 
+    </a>
+    <canvas style="display:none" id="c" width="800" height="450"></canvas>
   </div>
 </template>
 
@@ -13,7 +16,7 @@
     return new Promise(resolve => {
       fabric.Image.fromURL(url, function(img) {
         resolve(img);
-      });
+      }, { crossOrigin: 'anonymous'});
     });
   };
 
@@ -85,6 +88,12 @@
           this['canvas'].add(footer);
 
           this['canvas'].renderAll();
+
+          (document.getElementById("c") as any).toBlob(function(blob: any) {
+            (document.getElementById("graphic_download") as any).setAttribute('href', URL.createObjectURL(blob));
+            (document.getElementById("graphic_download") as any).setAttribute('download', "NPRcore.png");
+	        });
+
       },
 
       generateFooter() {

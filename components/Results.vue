@@ -4,57 +4,60 @@
     <div class="columns">
       <div class="column">
         <strong> {{track_matches.length}} </strong> matched tracks
-        <ul id="track_matches">
-          <li v-for="match in track_matches" :key="match.user.id">
-            <article class="media my-1">
-              <figure class="media-left">
-                <p class="">
-                  <img style="height: 4.5em;" :src="match.npr.cover">
-                </p>
-              </figure>
-              <div class="media-content">
-                <div class="has-text-left content">
-                  <p>
-                    <strong>{{match.npr.artist}}</strong>
-                    <br>
-                    <em>{{match.user.name}}</em> from "{{match.npr.title}}"
-                    <br>
-                    <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+        <div class="box" style="max-height: 12em; overflow-y:auto">
+          <ul id="track_matches">
+            <li v-for="match in track_matches" :key="match.user.id">
+              <article class="media my-1 box">
+                <figure class="media-left">
+                  <p class="">
+                    <img style="height: 4.5em;" :src="match.npr.cover">
                   </p>
+                </figure>
+                <div class="media-content">
+                  <div class="has-text-left content">
+                    <p>
+                      <strong>{{match.npr.artist}}</strong>
+                      <br>
+                      <em>{{match.user.name}}</em> from "{{match.npr.title}}"
+                      <br>
+                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          </li>
-        </ul>
+              </article>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="column">
         <strong> {{artist_matches.length}} </strong> matched artists
-        <ul id="artist_matches">
-          <li v-for="match in artist_matches" :key="match.user.id">
-            <article class="media my-1">
-              <figure class="media-left">
-                <p class="">
-                  <img style="height: 4.5em;" :src="match.user.images[0].url">
-                </p>
-              </figure>
-              <div class="media-content">
-                <div class="has-text-left content">
-                  <p>
-                    <strong>{{match.npr.artist}}</strong>
-                    <br>
-                    "{{match.npr.title}}"
-                    <br>
-                    <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+        <div class="box" style="max-height: 12em; overflow-y:auto">
+          <ul id="artist_matches">
+            <li v-for="match in artist_matches" :key="match.user.id">
+              <article class="media my-1 box">
+                <figure class="media-left">
+                  <p class="">
+                    <img style="height: 4.5em;" :src="match.user.images[0].url">
                   </p>
+                </figure>
+                <div class="media-content">
+                  <div class="has-text-left content">
+                    <p>
+                      <strong>{{match.npr.artist}}</strong>
+                      <br>
+                      "{{match.npr.title}}"
+                      <br>
+                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          </li>
-        </ul>
+              </article>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    
-    <!--<Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>-->
+    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches}"/>
   </div>
 </template>
 

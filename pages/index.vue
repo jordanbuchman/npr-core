@@ -2,7 +2,7 @@
 
   <div class="container">
     <div>
-      <h1 class="title is-1">
+      <h1 class="title is-1 my-2">
         How <img src="/images/nprlogo.png" style="height:3rem; vertical-align:bottom" /> core are you?
       </h1>
       <div class="links">
@@ -39,6 +39,7 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   text-align: center;
+  max-width: 90vw;
 }
 
 /*
@@ -59,8 +60,8 @@ export default Vue.extend({
   color: #35495e;
   letter-spacing: 1px;
 }
-*/
-/*
+
+
 .subtitle {
   font-weight: 300;
   font-size: 42px;
@@ -68,9 +69,9 @@ export default Vue.extend({
   word-spacing: 5px;
   padding-bottom: 15px;
 }
-
+*/
 .links {
   padding-top: 15px;
 }
-*/
+
 </style>

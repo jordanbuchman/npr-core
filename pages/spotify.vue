@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title is-1">
+      <h1 class="title is-1 my-5">
         How <img src="/images/nprlogo.png" style="height:3rem; vertical-align:bottom" /> core are you?
       </h1>
       <div class="tabs is-toggle is-centered is-fullwidth">
@@ -65,5 +65,6 @@ export default Vue.extend({
     justify-content: center;
     align-items: center;
     text-align: center;
+    max-width: 90vw;
   }
 </style>
