@@ -139,6 +139,22 @@
 
         this['track_matches'] = track_matches;
         this['artist_matches'] = artist_matches;
+
+        this['$ga']['event']({
+          eventCategory: 'Spotify - Score',
+          eventAction: 'Total',
+          eventLabel: ((this['track_matches'] as []).length + (this['artist_matches'] as []).length).toString()
+        });
+        this['$ga']['event']({
+          eventCategory: 'Spotify - Score',
+          eventAction: 'Tracks',
+          eventLabel: (this['track_matches'] as []).length.toString()
+        });
+        this['$ga']['event']({
+          eventCategory: 'Spotify - Score',
+          eventAction: 'Artists',
+          eventLabel: (this['artist_matches'] as []).length.toString()
+        });
       }
     },
 

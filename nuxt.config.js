@@ -37,7 +37,16 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/fontawesome',
+    '@nuxtjs/google-analytics'
   ],
+
+  googleAnalytics: {
+    id: 'UA-78510446-4',
+    debug: {
+      enabled: true,
+      sendHitTask: true
+    }
+  },
 
   fontawesome: {
     icons: {
@@ -62,5 +71,6 @@ export default {
         }
       }
     },
-  }
+  },
+
 }

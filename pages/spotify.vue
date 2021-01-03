@@ -44,6 +44,11 @@ export default Vue.extend({
     return{
       currentTab: "medium_term"
     }
+  },
+  head() {
+    return {
+      'title': 'How NPRcore are you? - Results'
+    }
   }
 })
 </script>

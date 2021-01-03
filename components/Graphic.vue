@@ -1,6 +1,6 @@
 <template>
 <div>
-    <a id="graphic_download" class="button is-primary is-medium">
+    <a v-on:click="download_hit" id="graphic_download" class="button is-primary is-medium">
       Download results graphic 
     </a>
     <canvas style="display:none" id="c" width="800" height="450"></canvas>
@@ -338,6 +338,14 @@
         
         group.addWithUpdate();
         return group;
+      },
+
+      download_hit() {
+        this['$ga']['event']({
+          eventCategory: 'Spotify',
+          eventAction: 'Download',
+          eventValue: 'Results Graphic'
+        });
       }
     },
     computed: {
