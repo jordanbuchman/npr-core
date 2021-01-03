@@ -13,7 +13,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'twitter:title', name: 'twitter:title', content: 'How NPRcore are you?'},
       { hid: 'twitter:description', name: 'twitter:description', content: 'Use our Super Special Deep Learning™ algorithm to figure out how NPRcore you are'},
-      
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image'},
 
     ],
     link: [
