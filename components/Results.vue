@@ -145,7 +145,7 @@
     computed: {
       score() {
         let s = (this['track_matches'] as []).length + (this['artist_matches'] as []).length;
-        return Math.round(10*Math.sqrt(s)) / 100;
+        return Math.round(100/(Math.pow(100, 1/1.5))*Math.pow(s, 1/1.5)) / 100;
       },
       verdict() {
         const verdicts = ["No Things Considered", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one NPR tote bag", "You're literally Ira Glass"];
