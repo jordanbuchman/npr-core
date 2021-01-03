@@ -11,7 +11,10 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'twitter:title', name: 'twitter:title', content: 'How NPRcore are you?'},
+      { hid: 'twitter:description', name: 'twitter:description', content: 'Use our Super Special Deep Learning™ algorithm to figure out how NPRcore you are'},
+      
+
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
