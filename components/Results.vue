@@ -148,8 +148,8 @@
         return Math.round(10*Math.sqrt(s)) / 100;
       },
       verdict() {
-        const verdicts = ["No Things Considered", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one tote bag", "You're literally Ira Glass"];
-        return verdicts[Math.round(verdicts.length*(this['score'] as any))];
+        const verdicts = ["No Things Considered", "Obama is your favorite president", "You probably say you like \"indie music\"", "You own at least one NPR tote bag", "You're literally Ira Glass"];
+        return verdicts[Math.floor(verdicts.length*(this['score'] as any))];
       }
     }
   }
