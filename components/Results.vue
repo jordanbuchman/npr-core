@@ -21,7 +21,7 @@
                       <br>
                       <em>{{match.user.name}}</em> from "{{match.npr.title}}"
                       <br>
-                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's <span v-if="match.npr.list.endsWith('listeners')"> Listeners' </span> Top Albums of {{match.npr.list.substring(0,4)}}
                     </p>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
                       <br>
                       "{{match.npr.title}}"
                       <br>
-                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's {{match.npr.list}}
+                      <span v-if="match.npr.ranked == 1">#{{match.npr.rank}} on </span> NPR Music's <span v-if="match.npr.list.endsWith('listeners')"> Listeners' </span> Top Albums of {{match.npr.list.substring(0,4)}}
                     </p>
                   </div>
                 </div>

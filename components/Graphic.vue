@@ -190,7 +190,7 @@
         albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
         albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
         group.add(albumImg);
-        let albumText = new fabric.Textbox(`${song.user.artists[0].name} / ${song.user.name} / \"${song.npr['title']}\" is ranked ${song.npr['rank']} on ${song.npr['list']}`, {
+        let albumText = new fabric.Textbox(`${song.user.artists[0].name} / ${song.user.name} / \"${song.npr['title']}\" is ${song.npr['ranked'] ? 'ranked '+song.npr['rank']+' ' : '' }on NPR Music's ${song.npr['list'].endsWith('listeners') ? 'Listeners\'' : ''} Top Albums of ${song.npr['list'].substring(0,4)}`, {
           top: ALBUM_IMAGE_SIZE+10,
           width: ALBUM_IMAGE_SIZE,
           fontSize: FONT_SIZE,
@@ -273,7 +273,7 @@
         albumImg.scaleToHeight(ALBUM_IMAGE_SIZE);
         albumImg.scaleToWidth(ALBUM_IMAGE_SIZE);
         group.add(albumImg);
-        let albumText = new fabric.Textbox(`${song.user.name}'s \"${song.npr['title']}\" is ranked ${song.npr['rank']} on ${song.npr['list']}`, {
+        let albumText = new fabric.Textbox(`${song.user.name}'s \"${song.npr['title']}\" is ${song.npr['ranked'] ? 'ranked '+song.npr['rank']+' ' : '' }on NPR Music's ${song.npr['list'].endsWith('listeners') ? 'Listeners\'' : ''} Top Albums of ${song.npr['list'].substring(0,4)}`, {
           top: ALBUM_IMAGE_SIZE+10,
           width: ALBUM_IMAGE_SIZE,
           fontSize: FONT_SIZE,
