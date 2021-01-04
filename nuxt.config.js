@@ -12,7 +12,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'twitter:title', name: 'twitter:title', content: 'How NPRcore are you?'},
-      { hid: 'twitter:description', name: 'twitter:description', content: 'Use our Super Special Deep Learning™ algorithm to figure out how NPRcore you are'},
+      { hid: 'twitter:description', name: 'twitter:description', content: 'Our super Special Deep Learning™ algorithm connects to your Spotify to figure out how NPRcore you are'},
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://nprcore.me/images/twitter_card.png'},
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image'},
 
     ],
