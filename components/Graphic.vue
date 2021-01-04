@@ -344,7 +344,7 @@
         this['$ga']['event']({
           eventCategory: 'Spotify',
           eventAction: 'Download',
-          eventValue: 'Results Graphic'
+          eventLabel: 'Results Graphic'
         });
       }
     },
