@@ -16,6 +16,10 @@ export default {
       { hid: 'twitter:image', name: 'twitter:image', content: 'https://nprcore.me/images/twitter_card.png'},
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image'},
 
+      { hid: 'og:title', name: 'og:title', content: 'How NPRcore are you?'},
+      { hid: 'og:description', name: 'og:description', content: 'Our Super Special Deep Learning Algorithm™ connects to your Spotify to figure out how NPRcore you are'},
+      { hid: 'og:image', name: 'og:image', content: 'https://nprcore.me/images/twitter_card.png'},
+
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
