@@ -1,6 +1,6 @@
 <template>
 <div>
-    <a v-on:click="download_hit" id="graphic_download" class="button is-primary is-medium">
+    <a v-on:click="download_hit" id="graphic_download" class="button is-primary is-medium mb-3">
       Download results graphic 
     </a>
     <canvas style="display:none" id="c" width="800" height="450"></canvas>

@@ -2,6 +2,7 @@
 <div>
     <h3 class="subtitle is-3">You are <span class="has-text-white has-text-weight-bold px-1" style="background-color: #C63229"> {{score*100}}%</span> NPRcore! </h3>
     <h4 class="subtitle is-4">Verdict: {{verdict}} </h4>
+    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches, verdict: verdict}"/>
     <div class="columns">
       <div class="column">
         <strong> {{track_matches.length}} </strong> matched tracks
@@ -58,7 +59,6 @@
         </div>
       </div>
     </div>
-    <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches, verdict: verdict}"/>
   </div>
 </template>
 
