@@ -41,11 +41,7 @@ export default {
   ],
 
   googleAnalytics: {
-    id: 'UA-78510446-4',
-    debug: {
-      enabled: true,
-      sendHitTask: true
-    }
+    id: 'UA-78510446-4'
   },
 
   fontawesome: {
