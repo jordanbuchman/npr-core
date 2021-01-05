@@ -145,7 +145,7 @@
           }
         }
 
-        let beginText = new fabric.IText(`You are  ${score}%  `, {
+        let beginText = new fabric.IText(`You are  ${Math.round(score)}%  `, {
           fontSize: FONT_SIZE,
           fontFamily: 'Trebuchet MS',
           top: 0,

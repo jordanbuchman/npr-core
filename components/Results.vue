@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h3 class="subtitle is-3">You are <span class="has-text-white has-text-weight-bold px-1" style="background-color: #C63229"> {{score*100}}%</span> NPRcore! </h3>
+    <h3 class="subtitle is-3">You are <span class="has-text-white has-text-weight-bold px-1" style="background-color: #C63229"> {{Math.round(score*100)}}%</span> NPRcore! </h3>
     <h4 class="subtitle is-4">Verdict: {{verdict}} </h4>
     <Graphic v-bind:results="{songs: track_matches, score: score*100, artists: artist_matches, verdict: verdict}"/>
     <div class="columns">
