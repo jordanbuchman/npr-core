@@ -56,8 +56,10 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Local env files
 .env
+.env.*
+!.env.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -65,10 +67,12 @@ typings/
 # next.js build output
 .next
 
-# nuxt.js build output
+# Nuxt dev/build outputs
+.output
+.data
 .nuxt
-
-# Nuxt generate
+.nitro
+.cache
 dist
 
 # vuepress build output
@@ -79,6 +83,7 @@ dist
 
 # IDE / Editor
 .idea
+.vscode
 
 # Service worker
 sw.*
@@ -86,5 +91,18 @@ sw.*
 # macOS
 .DS_Store
 
+# Misc
+.fleet
+
+
 # Vim swap files
 *.swp
+
+
+
+
+
+
+
+
+
