@@ -7,17 +7,48 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "postinstall": "nuxt prepare",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,mjs,cjs,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^7.2.0",
-    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@iconify-json/lucide": "^1.2.114",
+    "@iconify-json/simple-icons": "^1.2.86",
     "@nuxt/ui": "^4.8.2",
     "fabric": "^7.4.0",
     "nuxt": "^4.4.7",
     "nuxt-gtag": "^4.1.0",
     "spotify-web-api-ts-edge": "^0.9.7",
-    "vue": "^3.5.35",
-    "vue-router": "^5.1.0"
+    "vue": "^3.5.35"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.16.0",
+    "@nuxt/test-utils": "^4.0.3",
+    "@vue/test-utils": "^2.4.11",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "happy-dom": "^20.10.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.8.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9",
+    "vue-tsc": "^3.3.5"
   }
 }

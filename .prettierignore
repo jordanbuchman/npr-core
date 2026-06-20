@@ -1,0 +1,7 @@
+.nuxt
+.output
+.data
+dist
+node_modules
+public/npr_data.json
+package-lock.json
