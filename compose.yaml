@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    image: npr-core
+    ports:
+      - '3000:3000'
+    # Values are read from a local .env file (Compose loads it automatically)
+    # or the host shell. All are optional; defaults are baked into the image.
+    environment:
+      NUXT_PUBLIC_SPOTIFY_CLIENT_ID: ${NUXT_PUBLIC_SPOTIFY_CLIENT_ID:-}
+      NUXT_PUBLIC_SPOTIFY_REDIRECT_URI: ${NUXT_PUBLIC_SPOTIFY_REDIRECT_URI:-}
+      NUXT_PUBLIC_GTAG_ID: ${NUXT_PUBLIC_GTAG_ID:-}
+    restart: unless-stopped
