@@ -1,32 +1,60 @@
 {
-  "name": "npr-core",
-  "version": "1.0.0",
+  "name": "nprcore",
+  "version": "2.0.0",
+  "type": "module",
   "private": true,
+  "license": "GPL-3.0-only",
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts generate",
-    "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
+    "typecheck:scrapers": "tsc --noEmit -p scrapers/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "scrape": "tsx scrapers/build.ts",
+    "postinstall": "nuxt prepare",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,mjs,cjs,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^2.0.0",
-    "@nuxtjs/bulma": "^1.3.0",
-    "core-js": "^3.6.5",
-    "es6-promisify": "^6.1.1",
-    "fabric": "^4.3.0",
-    "nuxt": "^2.14.6",
-    "nuxt-buefy": "^0.4.4",
-    "spotify-web-api-js": "^1.5.1"
+    "@iconify-json/lucide": "^1.2.114",
+    "@iconify-json/simple-icons": "^1.2.86",
+    "@nuxt/ui": "^4.8.2",
+    "fabric": "^7.4.0",
+    "nuxt": "^4.4.7",
+    "nuxt-gtag": "^4.1.0",
+    "spotify-web-api-ts-edge": "^0.9.7",
+    "vue": "^3.5.35"
   },
   "devDependencies": {
-    "@fortawesome/free-brands-svg-icons": "^5.15.1",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@nuxt/types": "^2.14.6",
-    "@nuxt/typescript-build": "^2.0.3",
-    "@nuxtjs/fontawesome": "^1.1.2",
-    "@nuxtjs/google-analytics": "^2.4.0",
-    "@types/core-js": "^2.5.4",
-    "@types/es6-promisify": "^6.0.0",
-    "@types/fabric": "^4.2.1"
+    "@nuxt/eslint": "^1.16.0",
+    "@nuxt/test-utils": "^4.0.3",
+    "@vue/test-utils": "^2.4.11",
+    "cheerio": "^1.2.0",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "happy-dom": "^20.10.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.8.4",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9",
+    "vue-tsc": "^3.3.5"
   }
 }
