@@ -1,7 +1,9 @@
 {
   "name": "nprcore",
+  "version": "2.0.0",
   "type": "module",
   "private": true,
+  "license": "GPL-3.0-only",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,8 +12,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxt typecheck",
+    "typecheck:scrapers": "tsc --noEmit -p scrapers/tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
+    "scrape": "tsx scrapers/build.ts",
     "postinstall": "nuxt prepare",
     "prepare": "husky"
   },
@@ -41,12 +45,14 @@
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/test-utils": "^4.0.3",
     "@vue/test-utils": "^2.4.11",
+    "cheerio": "^1.2.0",
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
     "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "prettier": "^3.8.4",
+    "tsx": "^4.23.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9",
     "vue-tsc": "^3.3.5"
