@@ -3,7 +3,7 @@
     <h3 class="text-2xl font-semibold">
       You are
       <span class="rounded px-1 font-bold text-white" :style="{ backgroundColor: RED }">
-        {{ Math.round(score * 100) }}%
+        {{ score }}%
       </span>
       NPRcore!
     </h3>
@@ -12,7 +12,7 @@
     <Graphic
       v-if="matchCount > 0"
       class="my-4"
-      :results="{ songs: trackMatches, artists: artistMatches, score: score * 100, verdict }"
+      :results="{ songs: trackMatches, artists: artistMatches, score, verdict }"
     />
 
     <div v-if="pending" class="py-8 text-muted">Loading your top music…</div>
@@ -39,10 +39,13 @@
               <p class="text-sm">
                 <strong>{{ match.npr.artist }}</strong
                 ><br />
-                <em>{{ match.user.name }}</em> from “{{ match.npr.title }}”<br />
-                <span v-if="match.npr.ranked">#{{ match.npr.rank }} on </span>NPR Music's
-                <span v-if="match.npr.list.endsWith('listeners')">Listeners' </span>
-                Top Albums of {{ match.npr.list.substring(0, 4) }}
+                <template v-if="match.npr.track_id">“{{ match.npr.title }}”</template>
+                <template v-else
+                  ><em>{{ match.user.name }}</em> from “{{ match.npr.title }}”</template
+                >
+                <br />
+                <span v-if="match.npr.ranked">#{{ match.npr.rank }} on </span
+                >{{ nprListLabel(match.npr) }}
               </p>
             </article>
           </UCard>
@@ -65,9 +68,8 @@
                 <strong>{{ match.npr.artist }}</strong
                 ><br />
                 “{{ match.npr.title }}”<br />
-                <span v-if="match.npr.ranked">#{{ match.npr.rank }} on </span>NPR Music's
-                <span v-if="match.npr.list.endsWith('listeners')">Listeners' </span>
-                Top Albums of {{ match.npr.list.substring(0, 4) }}
+                <span v-if="match.npr.ranked">#{{ match.npr.rank }} on </span
+                >{{ nprListLabel(match.npr) }}
               </p>
             </article>
           </UCard>
@@ -78,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TimeRange } from '~/types/npr'
+import type { NprEntry, TimeRange } from '~/types/npr'
 
 const props = defineProps<{ timeframe: TimeRange }>()
 
@@ -89,4 +91,12 @@ const { trackMatches, artistMatches, matchCount, score, pending, error } = useNp
 )
 
 const verdict = computed(() => verdictFromScore(score.value, route.query.state === 'correct'))
+
+/** "NPR Music's [Listeners'] Top Songs/Albums of YYYY" for a matched entry. */
+function nprListLabel(npr: NprEntry): string {
+  const year = npr.list.substring(0, 4)
+  const kind = npr.track_id ? 'Songs' : 'Albums'
+  const listeners = npr.list.endsWith('listeners') ? "Listeners' " : ''
+  return `NPR Music's ${listeners}Top ${kind} of ${year}`
+}
 </script>

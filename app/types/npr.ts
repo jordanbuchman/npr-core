@@ -8,14 +8,17 @@ export type SpotifyArtist = Awaited<ReturnType<Personalization['getMyTopArtists'
 
 export type TimeRange = 'short_term' | 'medium_term' | 'long_term'
 
-/** A single album/artist entry from `public/npr_data.json`. */
+/** A single album/song entry from `public/npr_data.json`. */
 export interface NprEntry {
   album_id: string
   artist_id: string
+  /** Spotify track id — present for best-*songs* entries, absent for albums. */
+  track_id?: string
+  /** Album title for album entries; song title for song entries. */
   title: string
   artist: string
   cover: string
-  /** e.g. `"2020"` or `"2020listeners"`. */
+  /** e.g. `"2020"`, `"2020listeners"`, or `"2024songs"`. */
   list: string
   ranked: number
   rank: number
@@ -24,6 +27,8 @@ export interface NprEntry {
 export interface NprData {
   albums: Record<string, NprEntry[]>
   artists: Record<string, NprEntry[]>
+  /** Best-songs entries keyed by Spotify track id (optional for older datasets). */
+  tracks?: Record<string, NprEntry[]>
 }
 
 export interface TrackMatch {
