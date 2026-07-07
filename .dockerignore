@@ -18,6 +18,9 @@ test
 coverage
 *.log
 
+# Dev-only tooling — never part of the web image
+scrapers
+
 .vscode
 .idea
 .DS_Store

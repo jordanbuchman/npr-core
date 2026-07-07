@@ -4,10 +4,18 @@ services:
     image: npr-core
     ports:
       - '3000:3000'
-    # Values are read from a local .env file (Compose loads it automatically)
-    # or the host shell. All are optional; defaults are baked into the image.
+    # Passed through from your shell or a local .env (Compose loads .env
+    # automatically). Vars that are unset fall back to the defaults baked
+    # into the image — listing them bare avoids overriding with an empty value.
     environment:
-      NUXT_PUBLIC_SPOTIFY_CLIENT_ID: ${NUXT_PUBLIC_SPOTIFY_CLIENT_ID:-}
-      NUXT_PUBLIC_SPOTIFY_REDIRECT_URI: ${NUXT_PUBLIC_SPOTIFY_REDIRECT_URI:-}
-      NUXT_PUBLIC_GTAG_ID: ${NUXT_PUBLIC_GTAG_ID:-}
+      - NUXT_PUBLIC_SPOTIFY_CLIENT_ID
+      - NUXT_PUBLIC_SPOTIFY_REDIRECT_URI
+      - NUXT_PUBLIC_GTAG_ID
+      - NUXT_SCORE_PEPPER
+    volumes:
+      # Persist the score store (nitro fs storage base: ./.data/scores).
+      - score-data:/app/.data
     restart: unless-stopped
+
+volumes:
+  score-data:

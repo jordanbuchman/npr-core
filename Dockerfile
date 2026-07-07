@@ -24,6 +24,10 @@ ENV PORT=3000
 # Only the built server output is needed at runtime.
 COPY --from=build /app/.output ./.output
 
+# Score store lives here (nitro fs storage). Create it owned by `node` so a
+# mounted volume inherits writable ownership.
+RUN mkdir -p .data && chown node:node .data
+
 USER node
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
