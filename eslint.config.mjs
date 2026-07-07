@@ -11,4 +11,11 @@ export default withNuxt(
       'vue/multi-word-component-names': 'off',
     },
   },
+  {
+    // Scrapers are dev-only Node CLI scripts; logging is how they report progress.
+    files: ['scrapers/**/*.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
 )
